@@ -3,16 +3,27 @@ angular.module('bowlingApp', [])
 		var bowling = this;
 		bowling.frames = [];
 		bowling.score = 0;
-		console.log(angular.toJson(bowling.frames));
+		bowling.frameCount = 0;
 
 		bowling.addFrame = function() {
-			bowling.frames.push({"first": parseInt(bowling.first), "second": parseInt(bowling.second) });
+			bowling.frameCount++;
+
+			console.log(bowling.frameCount);
+			if(bowling.third != "") {
+				bowling.frames.push({"first": parseInt(bowling.first), "second": parseInt(bowling.second), "third": parseInt(bowling.third) });	
+			} else {
+				bowling.frames.push({"first": parseInt(bowling.first), "second": parseInt(bowling.second) });	
+			}
+			
+			bowling.first = "";
+			bowling.second = "";
+			bowling.third = "";
 
 			var jsonString = angular.toJson({"frames": bowling.frames});
 
 			$http({
-				//url: 'http://192.168.1.90:49213/bowling',
-				url: 'http://localhost:49213/bowling',
+				url: 'http://192.168.1.90:49213/bowling',
+				// url: 'http://localhost:49213/bowling',
 				dataType: 'json',
 				method: 'POST',
 				data: jsonString,

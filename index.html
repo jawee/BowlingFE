@@ -1,18 +1,22 @@
 <!doctype html>
 <html ng-app="bowlingApp">
   <head>
+  	<link rel="stylesheet/less" type="text/css" href="styles.less" />
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
+    <script src="less.js"></script>
     <!-- <link rel="stylesheet" href="app.css"> -->
   </head>
   <body>
     
-    <div ng-controller="BowlingController as bowling">
-  	<h2>Score: {{bowling.score}}</h2>
+    <div class="container" ng-controller="BowlingController as bowling">
+    <h1>Apsis Bowling App</h1>
+  	<h3>Score: {{bowling.score}}</h1>
       <form ng-submit="bowling.addFrame()">
-        <input type="text" ng-model="bowling.first"  size="30" placeholder="Roll 1">
-        <input type="text" ng-model="bowling.second"  size="30" placeholder="Roll 2">
-        <input class="btn-primary" type="submit" value="add">
+        <input type="text" ng-model="bowling.first"  placeholder="Roll 1">
+        <input type="text" ng-model="bowling.second" placeholder="Roll 2">
+        <input type="text" ng-model="bowling.third" placeholder="Roll 3 (if last frame)" ng-disabled="bowling.frameCount < 9">
+        <input class="btn btn-primary" type="submit" value="Add Score">
       </form>
     </div>
   </body>
