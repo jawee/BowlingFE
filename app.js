@@ -22,8 +22,7 @@ angular.module('bowlingApp', [])
 			var jsonString = angular.toJson({"frames": bowling.frames});
 
 			$http({
-				url: 'http://192.168.1.90:49213/bowling',
-				// url: 'http://localhost:49213/bowling',
+				url: 'http://localhost:49213/bowling',
 				dataType: 'json',
 				method: 'POST',
 				data: jsonString,
