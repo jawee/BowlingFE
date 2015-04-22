@@ -11,12 +11,13 @@ angular.module('bowlingApp', [])
 			bowling.third = "";
 		};
 
-		bowling.sendJsonToUrl = function(json, url) {
+		bowling.sendFramesToServer = function() {
+			var jsonString = angular.toJson({"frames": bowling.frames});
 			$http({
-				url: url,
+				url: 'http://localhost:49213/bowling',
 				dataType: 'json',
 				method: 'POST',
-				data: json,
+				data: jsonString,
 				headers: {
 					"Content-Type": "application/json"
 					}
@@ -39,9 +40,7 @@ angular.module('bowlingApp', [])
 			
 			bowling.clearFields();
 
-			var jsonString = angular.toJson({"frames": bowling.frames});
-
-			bowling.sendJsonToUrl(jsonString, "http://localhost:49213/bowling");
+			bowling.sendFramesToServer();
 		};
 	});
 
