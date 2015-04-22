@@ -5,27 +5,18 @@ angular.module('bowlingApp', [])
 		bowling.score = 0;
 		bowling.frameCount = 0;
 
-		bowling.addFrame = function() {
-			bowling.frameCount++;
-
-			console.log(bowling.frameCount);
-			if(bowling.third != "") {
-				bowling.frames.push({"first": parseInt(bowling.first), "second": parseInt(bowling.second), "third": parseInt(bowling.third) });	
-			} else {
-				bowling.frames.push({"first": parseInt(bowling.first), "second": parseInt(bowling.second) });	
-			}
-			
+		bowling.clearFields = function() {
 			bowling.first = "";
 			bowling.second = "";
 			bowling.third = "";
+		};
 
-			var jsonString = angular.toJson({"frames": bowling.frames});
-
+		bowling.sendJsonToUrl = function(json, url) {
 			$http({
-				url: 'http://localhost:49213/bowling',
+				url: url,
 				dataType: 'json',
 				method: 'POST',
-				data: jsonString,
+				data: json,
 				headers: {
 					"Content-Type": "application/json"
 					}
@@ -36,6 +27,21 @@ angular.module('bowlingApp', [])
   				error(function(data, status, headers, config) {
    					console.error(data)
   				});
+		}
+
+		bowling.addFrame = function() {
+			bowling.frameCount++;
+			if(bowling.third != "") {
+				bowling.frames.push({"first": parseInt(bowling.first), "second": parseInt(bowling.second), "third": parseInt(bowling.third) });	
+			} else {
+				bowling.frames.push({"first": parseInt(bowling.first), "second": parseInt(bowling.second) });	
+			}
+			
+			bowling.clearFields();
+
+			var jsonString = angular.toJson({"frames": bowling.frames});
+
+			bowling.sendJsonToUrl(jsonString, "http://localhost:49213/bowling");
 		};
 	});
 
