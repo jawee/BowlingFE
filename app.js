@@ -23,7 +23,7 @@ angular.module('bowlingApp', [])
 					}
 				}).
   				success(function(data, status, headers, config) {
-    				bowling.score = data;
+    				bowling.score = data.score;
  				 }).
   				error(function(data, status, headers, config) {
    					console.error(data)
